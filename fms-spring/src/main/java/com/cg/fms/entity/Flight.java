@@ -1,12 +1,18 @@
 package com.cg.fms.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="flightt")
+@Table(name="flight_tbl")
 public class Flight {
 	
 	@Id
@@ -18,6 +24,10 @@ public class Flight {
 	private String carrier_name;
 	@Column(name="seat_capacity")
 	private int seat_capacity;
+	
+	@OneToMany(mappedBy = "flight")
+	@JsonIgnore
+	List<Schedule> list = new ArrayList<>();
 	public int getFlight_number() {
 		return flight_number;
 	}
@@ -29,6 +39,12 @@ public class Flight {
 	}
 	public void setFlight_model(String flight_model) {
 		this.flight_model = flight_model;
+	}
+	public List<Schedule> getList() {
+		return list;
+	}
+	public void setList(List<Schedule> list) {
+		this.list = list;
 	}
 	public String getCarrier_name() {
 		return carrier_name;
